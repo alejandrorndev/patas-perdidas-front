@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import Input from '../componentsbase/Input';
 import Button from '../componentsbase/Button';
 import FormLayout from '../componentsbase/FormLayout';
@@ -11,22 +13,49 @@ import Select from '../componentsbase/Select';
 const validationSchema = Yup.object({
   nombre: Yup.string().required('El nombre es obligatorio'),
   email: Yup.string().email('Correo inválido').required('El correo es obligatorio'),
-  contrasena: Yup.string().min(6, 'La contraseña debe tener al menos 6 caracteres').required('La contraseña es obligatoria'),
+  contrasena: Yup.string().min(5, 'La contraseña debe tener al menos 5 caracteres').required('La contraseña es obligatoria'),
   rol: Yup.string().required('El rol es obligatorio')
 });
 
 const RegisterUserForm = () => {
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const userData = {
       nombre: values.nombre,
       email: values.email,
       contrasena: values.contrasena,
       rol: values.rol,
-      estado: "1" // Estado por defecto
+      estado: "1" // Estado activo por defecto
     };
     
-    // Enviar el objeto JSON al backend
-    console.log(userData); // Aquí puedes hacer la petición al backend
+    try {
+        const response = await axios.post('http://localhost:5002/api/usuarios', userData);
+        console.log('Registro exitoso:', response.data);
+        toast.success('Registro exitoso!');
+        resetForm();
+      } catch (error) {
+        if (error.response) {
+          // Si el error tiene respuesta del servidor, obtenemos el código de estado
+          const statusCode = error.response.status;
+      
+          if (statusCode === 409) {
+            toast.error('El correo electrónico ingresado ya está registrado. Por favor, intenta con otro.');
+            resetForm();
+          } else if (statusCode === 500) {
+            toast.error('Error del servidor. Por favor, inténtelo de nuevo más tarde.');
+          } else {
+            toast.error('Error en el envío de datos. Por favor, inténtelo de nuevo.');
+          }
+        } else if (error.request) {
+          // Si no hubo respuesta por parte del servidor
+          toast.error('No se recibió respuesta del servidor. Verifica tu conexión.');
+        } else {
+          // Errores al configurar la solicitud
+          toast.error('Ocurrió un error inesperado.');
+        }
+      
+        //console.error('Error en el envío de datos:', error);
+      }
+      
   };
 
   const handleCancel = (resetForm) => {
@@ -34,7 +63,7 @@ const RegisterUserForm = () => {
   };
 
   return (
-    <FormLayout title="Registro de Usuario">
+    <FormLayout title={<div className="text-center">Crear cuenta</div>} >
       <Formik
         initialValues={{ nombre: "", email: "", contrasena: "", rol: "" }}
         validationSchema={validationSchema}
@@ -45,9 +74,9 @@ const RegisterUserForm = () => {
 
             <div className="mb-4">
               <Input
-                label="Usuario"
+                label="Nombre"
                 name="nombre"
-                placeholder="sunombre"
+                placeholder="pedro perez"
                 value={values.nombre}
                 onChange={handleChange}
               />
@@ -97,8 +126,8 @@ const RegisterUserForm = () => {
                 value={values.rol}
                 onChange={handleChange}
                 options={[
-                  { value: "1", label: "Usuario" },
-                  { value: "2", label: "Administrador" },
+                  { value: "2", label: "Usuario" },
+                  { value: "1", label: "Administrador" },
                 ]}
               />
               <ErrorMessage
