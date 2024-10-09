@@ -8,18 +8,18 @@ const Header = () => {
         <ul className="hidden md:flex space-x-8 text-lg font-medium">
           <li>
             <Link
-              to="/animales-perdidos"
+              to="/mascotas-perdidos"
               className="text-gray-700 hover:text-green-500 transition duration-300"
             >
-              Animales perdidos
+              Mascotas perdidos
             </Link>
           </li>
           <li>
             <Link
-              to="/animales-encontrados"
+              to="/mascostas-encontrados"
               className="text-gray-700 hover:text-green-500 transition duration-300"
             >
-              Animales encontrados
+              Mascotas encontrados
             </Link>
           </li>
           <li>
@@ -32,11 +32,15 @@ const Header = () => {
           </li>
         </ul>
         <div className="bg-white bg-opacity-90 text-gray-800 text-sm py-2 px-4 rounded-full flex items-center space-x-2 shadow-lg border border-gray-300 hover:bg-opacity-100 transition duration-300">
+          <Link to="/iniciar-sesion">
           <span className="font-bold text-black">Iniciar sesión</span>
+          </Link>
           <span className="text-gray-500">/</span>
+          <Link  to="/registrarse">
           <span className="text-blue-500 cursor-pointer hover:text-blue-700">
             Registrarse
           </span>
+          </Link>
         </div>
 
         <div className="md:hidden flex items-center">
