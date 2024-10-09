@@ -46,7 +46,7 @@ function Header() {
           <span className="text-gray-500">/</span>
           <Link to="/registrarse">
             <span className="text-blue-500 cursor-pointer hover:text-blue-700">
-              Registrarse
+              Crear cuenta
             </span>
           </Link>
         </div>
@@ -101,7 +101,7 @@ function Header() {
             to="/registrarse"
             className="block text-blue-500 hover:text-blue-700 transition duration-300"
           >
-            Registrarse
+            Crear cuenta
           </Link>
         </div>
       )}
