@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Detail from './pages/detail';
 import RegisterUser from './pages/registrerUsers';
 import Login from './pages/login';
+import ForgetPassword from './pages/forgetpassword'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/registrarse' element={<RegisterUser />} />
           <Route path='/iniciar-sesion' element={<Login />} />
+          <Route path='/recuperar-contrasena' element={<ForgetPassword />} />
           <Route path='/:slug' element={<Detail />} />
         </Route>
       </Routes>
