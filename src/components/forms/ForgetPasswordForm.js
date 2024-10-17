@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
        
         console.log('response',response)
   
-        toast.success('Se genero el enlace exitosamente!');
+        toast.success(`Hemos enviado un correo electrónico a  ${ForgetPasswordData.email}  con instrucciones para restablecer su contraseña.`);
         resetForm();
       } catch (error) {
         if (error.response) {
@@ -50,7 +50,7 @@ const validationSchema = Yup.object({
     return (
       <FormLayout title={<div className="text-center">Restablecer contraseña</div>}>
         <Formik
-          initialValues={{ email: "", contrasena: "" }}
+          initialValues={{ email: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >

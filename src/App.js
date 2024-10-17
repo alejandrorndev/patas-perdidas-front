@@ -6,6 +6,7 @@ import RegisterUser from './pages/registrerUsers';
 import Login from './pages/login';
 import ForgetPassword from './pages/forgetpassword'
 import NotFound from './pages/NotFound'
+import ResetPassword from './pages/resetpassword'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos
@@ -19,6 +20,7 @@ function App() {
           <Route path='/registrarse' element={<RegisterUser />} />
           <Route path='/iniciar-sesion' element={<Login />} />
           <Route path='/recuperar-contrasena' element={<ForgetPassword />} />
+          <Route path='/restablecer-contrasena/:token' element={<ResetPassword />} />
           <Route path='/detalle/:slug' element={<Detail />} />
           <Route path="*" element={<NotFound />} />
         </Route>
