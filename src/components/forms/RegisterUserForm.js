@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
   nombre: Yup.string().required('El nombre es obligatorio'),
   email: Yup.string().email('Correo inválido').required('El correo es obligatorio'),
   contrasena: Yup.string().min(5, 'La contraseña debe tener al menos 5 caracteres').required('La contraseña es obligatoria'),
-  rol: Yup.string().required('El rol es obligatorio')
+  rol: Yup.string().required('El perfil es obligatorio')
 });
 
 const RegisterUserForm = () => {
@@ -32,6 +32,7 @@ const RegisterUserForm = () => {
         console.log('Registro exitoso:', response.data);
         toast.success('Registro exitoso!');
         resetForm();
+        window.location.href = '/';
       } catch (error) {
         if (error.response) {
           // Si el error tiene respuesta del servidor, obtenemos el código de estado
