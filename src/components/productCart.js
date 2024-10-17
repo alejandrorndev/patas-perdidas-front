@@ -15,7 +15,7 @@ const ProductCart = (props) => {
     }
     return (
       <div className="bg-white p-5 rounded-xl shadow-sm">
-        <Link to={slug}>
+        <Link to={`/detalle/${slug}`}>
           <img
             src={image}
             alt=""
@@ -31,7 +31,7 @@ const ProductCart = (props) => {
             className="bg-gray-300 p-2 rounded-md text-sm hover:bg-gray-400 flex gap-2"
             onClick={handleAddToCart}
           >
-            <Link to={slug}>Mas detalles</Link>
+            <Link to={`/detalle/${slug}`}>Mas detalles</Link>
           </button>
         </div>
       </div>
