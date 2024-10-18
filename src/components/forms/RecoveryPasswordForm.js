@@ -23,21 +23,25 @@ const ResetPasswordForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     const passwordData = {
-      newPassword: values.newPassword,
+      nuevaContrasena: values.newPassword,
     };
 
     try {
 
       const response = await axios.post(`http://localhost:5002/api/usuarios/recuperar-contrasena/${token}`, passwordData);
-
-      console.log('response', response);
-      toast.success('Tu contraseña ha sido restablecida exitosamente.');
-      resetForm();
+      console.log('response status', response.status);
+      if (response.status === 200) {
+        toast.success('Tu contraseña ha sido restablecida exitosamente.');
+        resetForm();
+       // window.location.href = '/iniciar-sesion';
+      }
     } catch (error) {
       if (error.response) {
         const statusCode = error.response.status;
         if (statusCode === 404) {
           toast.error('No se encontró la cuenta. Verifica tu información.');
+        } else if (statusCode === 400) {
+          toast.error('El token ha expirado o no es válido. Solicita un nuevo enlace de recuperación.');
         } else if (statusCode === 500) {
           toast.error('Error del servidor. Inténtalo nuevamente.');
         } else {
