@@ -29,10 +29,13 @@ const RegisterUserForm = () => {
     
     try {
         const response = await axios.post('http://localhost:5002/api/usuarios', userData);
-        console.log('Registro exitoso:', response.data);
-        toast.success('Registro exitoso!');
-        resetForm();
-        window.location.href = '/';
+        console.log('status', response.status);
+        if(response.status === 201){
+          toast.success('Registro exitoso!');
+          resetForm();
+        }
+ 
+       // window.location.href = '/iniciar-sesion';
       } catch (error) {
         if (error.response) {
           // Si el error tiene respuesta del servidor, obtenemos el código de estado
