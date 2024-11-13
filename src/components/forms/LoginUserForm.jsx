@@ -24,13 +24,13 @@ const LoginForm = () => {
       const response = await axios.post('http://localhost:5002/api/usuarios/inicio-sesion', loginData);
       const accessToken = response.data.data.accessToken;
       
-
+      console.log('response',response)
       sessionStorage.setItem('token', accessToken);
 
 
       toast.success('Inicio de sesión exitoso!');
       resetForm();
-      window.location.href = '/';
+      //window.location.href = '/';
     } catch (error) {
       if (error.response) {
         const statusCode = error.response.status;
